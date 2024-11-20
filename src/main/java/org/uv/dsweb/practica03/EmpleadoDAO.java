@@ -38,12 +38,11 @@ public class EmpleadoDAO implements Serializable{
             if (tra != null) {
                 tra.rollback();
             }
-            System.out.println(e+"holllllaaaaaaa");
         } 
         return success;
     }
 
-    public boolean update(EmpleadoEntity empleado, long id) {
+    public boolean update(EmpleadoEntity empleado, Long id) {
         boolean success = false;
         try{
             sf = HibernateUtil.getSessionFactory();
@@ -51,7 +50,11 @@ public class EmpleadoDAO implements Serializable{
             tra = session.beginTransaction();
             EmpleadoEntity emp = session.get(EmpleadoEntity.class, id);
             if (emp != null){
-                session.update(empleado);
+                
+                emp.setName(empleado.getName());
+                emp.setAddress(empleado.getAddress());
+                emp.setPhone(empleado.getPhone());
+                session.update(emp);
                 tra.commit();
                 success = true;
             }
@@ -61,11 +64,12 @@ public class EmpleadoDAO implements Serializable{
             if (tra != null) {
                 tra.rollback();
             }
+            System.out.println(e);
         } 
         return success;
     }
 
-    public boolean delete(long id) {
+    public boolean delete(Long id) {
         boolean success = false;
         try{
             sf = HibernateUtil.getSessionFactory();
@@ -73,7 +77,7 @@ public class EmpleadoDAO implements Serializable{
             tra = session.beginTransaction();
             EmpleadoEntity emp = session.get(EmpleadoEntity.class, id);
             if (emp != null){
-                session.delete(id);
+                session.delete(emp);
                 tra.commit();
                 success = true;
             }
@@ -82,12 +86,13 @@ public class EmpleadoDAO implements Serializable{
         catch(HibernateException e) {
             if (tra != null) {
                 tra.rollback();
+                System.out.println(e);
             }
         } 
         return success;
     }
 
-    public EmpleadoEntity findByID(long id) {
+    public EmpleadoEntity findByID(Long id) {
         try{
             sf = HibernateUtil.getSessionFactory();
             session = sf.getCurrentSession();
@@ -109,7 +114,7 @@ public class EmpleadoDAO implements Serializable{
             sf = HibernateUtil.getSessionFactory();
             session = sf.getCurrentSession();
             tra = session.beginTransaction();
-            List<EmpleadoEntity> emp = session.createQuery("From empleadotemporal emp order by emp.id").list();
+            List<EmpleadoEntity> emp = session.createQuery("From EmpleadoEntity emp order by emp.id").list();
             tra.commit();
             session.close();
             return emp;

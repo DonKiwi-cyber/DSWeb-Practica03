@@ -23,11 +23,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 
                 <div class="inputs">
                     <h1>CRUD Empleados</h1><br/>
-                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center">
+                    <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-left">
+                        <p:outputLabel>ID</p:outputLabel>
+                        <p:inputText id='id' value="#{EmpleadoBean.empleadoId}"/>
+                        
                         <p:outputLabel>Nombre</p:outputLabel>
                         <p:inputText id='nombre' value="#{EmpleadoBean.empleado.name}"/>
 
-                        <p:outputLabel>Dirección</p:outputLabel>
+                        <p:outputLabel>Direccion</p:outputLabel>
                         <p:inputText id='direccion' value="#{EmpleadoBean.empleado.address}"/>
 
                         <p:outputLabel for="@next">Telefono</p:outputLabel>
@@ -40,13 +43,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:commandButton id="btnGuardar" value="Guardar" update="growl" actionListener="#{EmpleadoBean.guardarEmpleado()}"/>
                         <p:commandButton id="btnActualizar" value="Actualizar" update="growl" actionListener="#{EmpleadoBean.actualizarEmpleado()}"/>
                         <p:commandButton id="btnEliminar" value="Eliminar" update="growl" actionListener="#{EmpleadoBean.eliminarEmpleado()}"/>
-                        <p:commandButton id="btnMostrarUno" value="MostrarUno" update="growl, products" actionListener="#{EmpleadoView.mostrarEmpleado(EmpleadoBean.empleadoId)}"/>
-                        <p:commandButton id="btnMostrarTodo" value="MostrarTodo" update="growl, products" actionListener="#{EmpleadoView.mostrarTodo()}"/>
+                        <p:commandButton id="btnMostrarUno" value="MostrarUno" update="growl, empleadoList" actionListener="#{EmpleadoBean.mostrarEmpleado()}" />
+                        <p:commandButton id="btnMostrarTodo" value="MostrarTodo" update="growl, empleadoList"  actionListener="#{EmpleadoBean.mostrarTodo()}"/>
                     </p:panelGrid>
                 </div>
                 
                 <div class="data">
-                    <p:dataTable id="products" var="empleado" value="#{EmpleadoView.empleadoList}" rowKey="#{empleado.id}">
+                    <p:dataTable id="empleadoList" var="empleado" value="#{EmpleadoBean.empleadoList}" rowKey="#{empleado.id}" lazy="true">
                         <f:facet name="header">
                             Empleados
                         </f:facet>
@@ -55,13 +58,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                             <h:outputText value="#{empleado.id}" />
                         </p:column>
                         <p:column headerText="Nombre">
-                            <h:outputText value="#{empleado.nombre}" />
+                            <h:outputText value="#{empleado.name}" />
                         </p:column>
-                        <p:column headerText="Direcciony">
-                            <h:outputText value="#{empleado.direccion}" />
+                        <p:column headerText="Direccion">
+                            <h:outputText value="#{empleado.address}" />
                         </p:column>
                         <p:column headerText="Telefono">
-                            <h:outputText value="#{empleado.telefono}" />
+                            <h:outputText value="#{empleado.phone}" />
                         </p:column>
                     </p:dataTable>
                 </div>

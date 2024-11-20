@@ -30,7 +30,7 @@ public class EmpleadoEntity implements Serializable {
             initialValue = 1,
             allocationSize = 1)
     @Column(name="id")
-    private long id;
+    private Long id;
     
     @Column(name="nombre")
     private String name;
@@ -41,11 +41,11 @@ public class EmpleadoEntity implements Serializable {
     @Column(name="telefono")
     private String phone;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

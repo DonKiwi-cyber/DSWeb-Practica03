@@ -88,6 +88,7 @@ public class EmpleadoBean implements Serializable {
     }
     
     public void actualizarEmpleado(){
+        System.out.println(empleadoId);
         if(empleado.getName().isEmpty() || empleado.getAddress().isEmpty() || empleado.getPhone().isEmpty()){
             addMessage(FacesMessage.SEVERITY_WARN, faltanDatos, warnTitle);
         }
@@ -102,6 +103,7 @@ public class EmpleadoBean implements Serializable {
             }
         }
     }
+    
     
     public void mostrarEmpleado(){
         if(empleadoId<=0){
@@ -119,7 +121,7 @@ public class EmpleadoBean implements Serializable {
             }
         }
     }
-    
+//    
     public void mostrarTodo(){
         empleadoList = empleadoDao.findAll();
         if(empleadoList==null){
